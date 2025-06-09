@@ -46,6 +46,4 @@ server.use("/", checkSign, (req, res) => {
 server.use("/tasks", checkSign, tskRoutes);
 server.use("/auth", authRoutes);
 
-server.listen(3000, () => {
-  console.log(`Online`);
-});
+module.exports = server;

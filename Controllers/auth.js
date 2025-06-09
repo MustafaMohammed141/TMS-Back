@@ -1,7 +1,10 @@
 const User = require("../Models/Users");
 const userschema = require("../Models/Users");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
+const TOKEN_KEY = process.env.TOKEN_KEY;
 const signup = async (req, res) => {
   const { name, email, password } = req.body;
   if (!name || !email || !password)
@@ -15,16 +18,13 @@ const signup = async (req, res) => {
       .status(400)
       .json({ status: 400, data: { data: null, message: "Existing User" } });
   const passhash = await bcrypt.hash(password, 8);
-
-  const user = await userschema({
-    name,
-    email,
-    password: passhash,
-  });
+  const data = { name, email, password: passhash };
+  const user = await userschema(data);
   await user.save();
+  const enc = jwt.sign(data, TOKEN_KEY);
   return res.status(201).json({
     status: 201,
-    data: { data: true, message: "Signed up successfully" },
+    data: { data: enc, message: "Signed up successfully" },
   });
 };
 

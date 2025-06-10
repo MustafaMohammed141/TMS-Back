@@ -6,7 +6,6 @@ const mongoose = require("mongoose");
 const { usrRoutes } = require("./Routes/Users");
 const { tskRoutes } = require("./Routes/Tasks");
 const { authRoutes } = require("./Routes/auth");
-const autoIn = express.Router();
 require("dotenv").config();
 const DB = process.env.DB;
 const TOKEN_KEY = process.env.TOKEN_KEY;

@@ -42,7 +42,7 @@ const checkSign = (req, res, next) => {
 server.use("/", checkSign, (req, res) => {
   return res.status(202).json({ status: 202, message: "All good" });
 });
-// server.use("/users", usrRoutes);
+server.use("/users", usrRoutes);
 server.use("/tasks", checkSign, tskRoutes);
 server.use("/auth", authRoutes);
 

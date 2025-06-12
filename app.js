@@ -20,11 +20,15 @@ mongoose
     console.error("MongoDB Connection Error:", err);
   });
 
-server.use("/", (req, res) => {
-  return res.status(202).json({ status: 202, message: "All good" });
-});
 server.use("/users", usrRoutes);
 server.use("/tasks", checkSign, tskRoutes);
 server.use("/auth", authRoutes);
 
+server.use("/", (req, res) => {
+  return res.status(202).json({ status: 202, message: "All good" });
+});
+
+server.listen(3000, () => {
+  console.log(`online`);
+});
 module.exports = server;

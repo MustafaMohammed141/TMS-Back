@@ -12,7 +12,7 @@ server.use(cors());
 server.use(express.json());
 
 mongoose
-  .connect(DB)
+  .connect(`${DB}`)
   .then(() => {
     console.log(`DB is online`);
   })

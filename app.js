@@ -31,4 +31,8 @@ server.use("/", (req, res) => {
 server.listen(3000, () => {
   console.log(`online`);
 });
+
+server.use("/", (req, res) => {
+  return res.status(202).json({ status: 202, message: "All good" });
+});
 module.exports = server;

@@ -8,6 +8,7 @@ const { authRoutes } = require("./Routes/auth");
 require("dotenv").config();
 const DB = process.env.DB;
 const { checkSign } = require("./MiddleWare/CheckSign");
+const { Me } = require("./MiddleWare/CheckMe");
 server.use(cors());
 server.use(express.json());
 
@@ -20,7 +21,7 @@ mongoose
     console.error("MongoDB Connection Error:", err);
   });
 
-server.use("/users", usrRoutes);
+server.use("/users", Me, usrRoutes);
 server.use("/tasks", checkSign, tskRoutes);
 server.use("/auth", authRoutes);
 

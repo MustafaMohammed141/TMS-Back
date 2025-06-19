@@ -21,10 +21,9 @@ const signup = async (req, res) => {
   const data = { name, email, password: passhash };
   const user = await userschema(data);
   await user.save();
-  const enc = jwt.sign(data, TOKEN_KEY);
   return res.status(201).json({
     status: 201,
-    data: { data: enc, message: "Signed up successfully" },
+    message: "Signed up",
   });
 };
 
@@ -47,9 +46,11 @@ const login = async (req, res) => {
       status: 400,
       data: { data: null, message: "Recheck your data" },
     });
-  return res.status(201).json({
-    status: 201,
-    data: { data: "data", message: "Success" },
+  const id = isUser._id;
+  const enc = jwt.sign({ id }, TOKEN_KEY);
+  return res.setHeader(`Authorization`, `Bearer ${enc}`).status(202).json({
+    status: 202,
+    message: "Logged in",
   });
 };
 module.exports = { signup, login };

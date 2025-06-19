@@ -48,9 +48,13 @@ const login = async (req, res) => {
     });
   const id = isUser._id;
   const enc = jwt.sign({ id }, TOKEN_KEY);
-  return res.setHeader(`Authorization`, `Bearer ${enc}`).status(202).json({
-    status: 202,
-    message: "Logged in",
-  });
+  return res
+    .setHeader(`Authorization`, `Bearer ${enc}`)
+    .setHeader("Access-Control-Expose-Headers", "Authorization")
+    .status(202)
+    .json({
+      status: 202,
+      message: "Logged in",
+    });
 };
 module.exports = { signup, login };

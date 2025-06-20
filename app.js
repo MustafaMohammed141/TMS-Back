@@ -2,12 +2,16 @@ const express = require("express");
 const server = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
+const cookie = require("cookie-parser")
 const { usrRoutes } = require("./Routes/Users");
 const { tskRoutes } = require("./Routes/Tasks");
 const { authRoutes } = require("./Routes/auth");
-require("dotenv").config();
 const DB = process.env.DB;
 const { checkSign } = require("./MiddleWare/CheckSign");
+
+require("dotenv").config();
+
+server.use(cookie())
 server.use(cors());
 server.use(express.json());
 

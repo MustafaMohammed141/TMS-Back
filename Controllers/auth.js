@@ -48,17 +48,18 @@ const login = async (req, res) => {
     });
   const id = isUser._id;
   const enc = jwt.sign({ id }, TOKEN_KEY);
-  return res
+  res
     .setHeader(`Authorization`, `Bearer ${enc}`)
     .setHeader("Access-Control-Expose-Headers", "Authorization")
-    .status(202)
-    .json({
-      status: 202,
-      message: "Logged in",
-    }).cookie("token", enc, {
-  httpOnly: true,        
-  secure: false,          
-  sameSite: "Strict",
-  maxAge: 1000 * 60 * 60 * 24 * 30, });
+    .cookie("token", enc, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "Strict",
+      maxAge: 1000 * 60 * 60 * 24 * 30,
+    });
+  return res.status(202).json({
+    status: 202,
+    message: "Logged in",
+  });
 };
 module.exports = { signup, login };

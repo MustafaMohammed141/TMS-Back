@@ -1,3 +1,5 @@
+// REMEMBER TO CHANGE SAMESITE TO STRICT 3L4AN EL SECURITY
+
 const User = require("../Models/Users");
 const userschema = require("../Models/Users");
 const bcrypt = require("bcrypt");

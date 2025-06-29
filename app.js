@@ -12,7 +12,7 @@ const { checkSign } = require("./MiddleWare/CheckSign");
 require("dotenv").config();
 
 server.use(cookie());
-server.use(cors({ credentials: true }));
+server.use(cors({ credentials: true ,origin: * }));
 server.use(express.json());
 
 mongoose

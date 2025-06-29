@@ -30,14 +30,14 @@ server.use("/auth", authRoutes);
 server.use("/isLogged", (req, res) => {
   const token = req.cookies.token;
   if (!token) {
-    return res.status(200).json({ logged: false });
+    return res.status(200).json({ logged: false,message:"no token provided" });
   }
 
   try {
     const decoded = jwt.verify(token, process.env.TOKEN_KEY);
     return res.status(200).json({ logged: true, id: decoded.id });
   } catch (err) {
-    return res.status(403).json({ logged: false });
+    return res.status(403).json({ logged: false,message:"something went wrong" });
   }
 });
 

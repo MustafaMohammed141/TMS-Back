@@ -35,7 +35,7 @@ server.use("/isLogged", (req, res) => {
 
   try {
     const decoded = jwt.verify(token, process.env.TOKEN_KEY);
-    return res.status(200).json({ logged: true, id: decoded.id });
+    return res.status(200).json({ logged: true });
   } catch (err) {
     return res.status(403).json({ logged: false,message:"something went wrong" });
   }

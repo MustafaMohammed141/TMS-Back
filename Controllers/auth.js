@@ -18,12 +18,20 @@ const signup = async (req, res) => {
       .status(400)
       .json({ status: 400, data: { data: null, message: "Existing User" } });
   const passhash = await bcrypt.hash(password, 8);
-  const data = { name, email, password: passhash };
-  const user = await userschema(data);
-  await user.save();
-  return res.status(201).json({
-    status: 201,
-    message: "Signed up",
+  const user = await User.create({ name, email, password: passhash });
+  const enc = jwt.sign({ name }, TOKEN_KEY);
+  res
+    .setHeader(`Authorization`, `Bearer ${enc}`)
+    .setHeader("Access-Control-Expose-Headers", "Authorization")
+    .cookie("token", enc, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "Strict",
+      maxAge: 1000 * 60 * 60 * 24 * 30,
+    });
+  return res.status(202).json({
+    status: 202,
+    message: "signed up",
   });
 };
 

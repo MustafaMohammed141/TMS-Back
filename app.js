@@ -2,7 +2,7 @@ const express = require("express");
 const server = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
-const cookie = require("cookie-parser")
+const cookie = require("cookie-parser");
 const { usrRoutes } = require("./Routes/Users");
 const { tskRoutes } = require("./Routes/Tasks");
 const { authRoutes } = require("./Routes/auth");
@@ -11,8 +11,8 @@ const { checkSign } = require("./MiddleWare/CheckSign");
 
 require("dotenv").config();
 
-server.use(cookie())
-server.use(cors());
+server.use(cookie());
+server.use(cors({ credentials: true }));
 server.use(express.json());
 
 mongoose
@@ -27,9 +27,23 @@ mongoose
 server.use("/users", usrRoutes);
 server.use("/tasks", checkSign, tskRoutes);
 server.use("/auth", authRoutes);
+server.use("/isLogged", (req, res) => {
+  const token = req.cookies.token;
+  if (!token) {
+    return res.status(200).json({ logged: false });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.TOKEN_KEY);
+    return res.status(200).json({ logged: true, id: decoded.id });
+  } catch (err) {
+    return res.status(403).json({ logged: false });
+  }
+});
 
 server.use("/", (req, res) => {
   return res.status(202).json({ status: 202, message: "All good" });
 });
+server.listen(3000);
 
 module.exports = server;

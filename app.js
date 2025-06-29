@@ -44,6 +44,5 @@ server.use("/isLogged", (req, res) => {
 server.use("/", (req, res) => {
   return res.status(202).json({ status: 202, message: "All good" });
 });
-server.listen(3000);
 
 module.exports = server;

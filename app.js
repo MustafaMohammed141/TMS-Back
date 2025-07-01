@@ -54,7 +54,7 @@ server.use("/isLogged", (req, res) => {
   } catch (err) {
     return res
       .status(403)
-      .json({ logged: false, message: "something went wrong" });
+      .json({ logged: false, message: err });
   }
 });
 

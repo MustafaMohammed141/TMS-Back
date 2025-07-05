@@ -11,7 +11,7 @@ const { checkSign } = require("./MiddleWare/CheckSign");
 
 require("dotenv").config();
 
-const allowedOrigins = ["http://localhost:5173"];
+const allowedOrigins = ["http://156.203.32.54:5173"];
 
 server.use(
   cors({

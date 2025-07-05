@@ -52,10 +52,8 @@ server.use("/isLogged", (req, res) => {
  
   try {
     const decoded = jwt.verify(token, process.env.TOKEN_KEY);
-    console.log("Decoded:", decoded);   // ✅
     return res.status(200).json({ logged: true });
   } catch (err) {
-    console.error("JWT Error:", err);   // ✅
     return res.status(403).json({ logged: false, message: "Invalid token" });
   }
 });

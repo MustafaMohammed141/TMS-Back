@@ -3,6 +3,7 @@ const server = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
 const cookie = require("cookie-parser");
+const jwt = require("jsonwebtoken");
 const { usrRoutes } = require("./Routes/Users");
 const { tskRoutes } = require("./Routes/Tasks");
 const { authRoutes } = require("./Routes/auth");

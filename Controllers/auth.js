@@ -57,7 +57,8 @@ const login = async (req, res) => {
       data: { data: null, message: "Recheck your data" },
     });
   const id = isUser._id;
-  const enc = jwt.sign({ id }, TOKEN_KEY);
+  const unm = isUser.name;
+  const enc = jwt.sign({ id,unm }, TOKEN_KEY);
   res
     .setHeader(`Authorization`, `Bearer ${enc}`)
     .setHeader("Access-Control-Expose-Headers", "Authorization")
